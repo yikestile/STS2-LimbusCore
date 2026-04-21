@@ -1,0 +1,4 @@
+﻿{
+  "LIMBUS_SANITY.title": "理智值 (SP)",
+  "LIMBUS_SANITY.description": "造成伤害时获得等同于伤害量 [blue]100%[/blue] 的SP。\n受到伤害时失去等同于伤害量 [red]200%[/red] 的SP。\n击杀目标时获得 [blue]5[/blue] 点SP。\nSP低于 [red]0[/red] 时：有概率降低造成的伤害。\nSP达到 [red]-30[/red] 时：进入 [red]恐慌[/red] 状态。\nSP在 [red]-35[/red] 到 [red]-45[/red] 之间时：有概率完全跳过回合。"
+}

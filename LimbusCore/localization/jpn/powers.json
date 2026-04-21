@@ -1,0 +1,65 @@
+﻿{
+  "LIMBUSCORE-L_C_EVADE_POWER.title": "回避",
+  "LIMBUSCORE-L_C_EVADE_POWER.description": "スタック数値以下のダメージをすべて回避します。",
+  "LIMBUSCORE-L_C_EVADE_POWER.smartDescription": "[blue]{Amount}[/blue]以下のダメージをすべて回避します。",
+
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.title": "次ターン脆弱",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.description": "次のターンに[gold]脆弱[/gold]を得ます。",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.smartDescription": "次のターンに[gold]脆弱[/gold] [blue]{Amount}[/blue]を得ます。",
+
+  "LIMBUSCORE-L_C_FRAGILE_POWER.title": "脆弱",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.description": "このターン、受けるダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.smartDescription": "このターン、受けるダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.title": "打撃脆弱",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.description": "このターン、受ける[gold]打撃[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.smartDescription": "このターン、受ける[gold]打撃[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.title": "貫通脆弱",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.description": "このターン、受ける[gold]貫通[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.smartDescription": "このターン、受ける[gold]貫通[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.title": "斬撃脆弱",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.description": "このターン、受ける[gold]斬撃[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.smartDescription": "このターン、受ける[gold]斬撃[/gold]ダメージが1スタックにつき[blue]+10%[/blue]増加します。(最大 [blue]100%[/blue])",
+
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.title": "次ターン攻撃威力増加",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.description": "次のターンに[gold]筋力[/gold]を得ます。",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.smartDescription": "次のターンに[gold]筋力[/gold] [blue]{Amount}[/blue]を得ます。",
+
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.title": "次ターン攻撃威力減少",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.description": "次のターンに[gold]脱力[/gold]を得ます。",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "次のターンに[gold]脱力[/gold] [blue]{Amount}[/blue]を得ます。",
+
+  "LIMBUSCORE-L_C_POISE_POWER.title": "呼吸",
+  "LIMBUSCORE-L_C_POISE_POWER.description": "[gold]威力[/gold]1につき、クリティカル確率が[blue]5%[/blue]増加します。クリティカルダメージは[blue]1.2倍[/blue]になります。一定の[gold]回数[/gold]攻撃すると消失します。",
+  "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "クリティカル確率が[blue]{Potency}*5%[/blue] ([blue]{CritChance}%[/blue])増加します。(残り[gold]回数[/gold]: [blue]{Amount}[/blue]) クリティカルダメージは[blue]1.2倍[/blue]になります。",
+
+  "LIMBUSCORE-L_C_SINKING_POWER.title": "沈潜",
+  "LIMBUSCORE-L_C_SINKING_POWER.description": "的中時: [gold]威力[/gold]5につき、このターンの[gold]筋力[/gold]が[blue]1[/blue]減少します。一定の[gold]回数[/gold]的中されると消失します。",
+  "LIMBUSCORE-L_C_SINKING_POWER.smartDescription": "的中時: [gold]威力[/gold]5につき、このターンの[gold]筋力[/gold]が[blue]1[/blue]減少します。[gold]威力:[/gold] [blue]{Potency}[/blue]。\n[gold]回数:[/gold] [blue]{Amount}[/blue] (発動ごとに1減少)",
+
+  "LIMBUSCORE-L_C_BURN_POWER.title": "火傷",
+  "LIMBUSCORE-L_C_BURN_POWER.description": "ターン終了時: [gold]威力[/gold]分のダメージを受けます。毎ターン[gold]回数[/gold]が[blue]1[/blue]減少します。",
+  "LIMBUSCORE-L_C_BURN_POWER.smartDescription": "ターン終了時: [blue]{Potency}[/blue]ダメージを受けます。毎ターン[gold]回数[/blue]が[blue]1[/blue]減少します。",
+
+  "LIMBUSCORE-L_C_BLEED_POWER.title": "出血",
+  "LIMBUSCORE-L_C_BLEED_POWER.description": "攻撃するたびに[gold]威力[/gold]分のダメージを受けます。攻撃するたびに[gold]回数[/gold]が[blue]1[/blue]減少します。",
+  "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "攻撃するたびに[blue]{Potency}[/blue]ダメージを受けます。攻撃するたびに[gold]回数[/gold]が[blue]1[/blue]減少します。",
+
+  "LIMBUSCORE-L_C_PARALYZE_POWER.title": "麻痺",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "次に与えるダメージが1になる確率があります。発動後に解除されます。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue]の確率で次に与えるダメージが1になります。発動後に解除されます。",
+
+  "LIMBUSCORE-L_C_PROTECTION_POWER.title": "保護",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.description": "このターン、受けるダメージが1スタックにつき[blue]-10%[/blue]減少します。(最大 [blue]100%[/blue])",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.smartDescription": "このターン、受けるダメージが1スタックにつき[blue]-10%[/blue]減少します。(最大 [blue]100%[/blue])",
+
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.title": "次ターン保護",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.description": "次のターンに[gold]保護[/gold]を得ます。",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.smartDescription": "次のターンに[gold]保護[/gold] [blue]{Amount}[/blue]を得ます。",
+
+  "LIMBUSCORE-L_C_GLOOMING_POWER.title": "憂鬱",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]沈潜[/gold]がダメージを与えるようになります。的中時: [gold]沈潜威力[/gold]5につき[blue]1[/blue]ダメージを受けます。",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沈潜[/gold]がダメージを与えるようになります。的中時: [gold]沈潜威力[/gold]5につき[blue]1[/blue]ダメージを受けます。"
+}

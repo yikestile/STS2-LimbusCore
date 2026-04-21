@@ -1,0 +1,65 @@
+﻿{
+  "LIMBUSCORE-L_C_EVADE_POWER.title": "回避",
+  "LIMBUSCORE-L_C_EVADE_POWER.description": "回避所有小于或等于层数的伤害。",
+  "LIMBUSCORE-L_C_EVADE_POWER.smartDescription": "回避所有小于或等于 [blue]{Amount}[/blue] 点的伤害。",
+
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.title": "下回合脆弱",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.description": "下回合获得[gold]脆弱[/gold]。",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.smartDescription": "下回合获得 [blue]{Amount}[/blue] 层[gold]脆弱[/gold]。",
+
+  "LIMBUSCORE-L_C_FRAGILE_POWER.title": "脆弱",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.description": "本回合内每层使受到的伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.smartDescription": "本回合内每层使受到的伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.title": "打击脆弱",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.description": "本回合内每层使受到的[gold]打击[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.smartDescription": "本回合内每层使受到的[gold]打击[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.title": "穿刺脆弱",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.description": "本回合内每层使受到的[gold]穿刺[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.smartDescription": "本回合内每层使受到的[gold]穿刺[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.title": "斩击脆弱",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.description": "本回合内每层使受到的[gold]斩击[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.smartDescription": "本回合内每层使受到的[gold]斩击[/gold]伤害增加 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.title": "下回合力量",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.description": "下回合获得[gold]力量[/gold]。",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.smartDescription": "下回合获得 [blue]{Amount}[/blue] 点[gold]力量[/gold]。",
+
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.title": "下回合虚弱",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.description": "下回合获得[gold]虚弱[/gold]。",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "下回合获得 [blue]{Amount}[/blue] 层[gold]虚弱[/gold]。",
+
+  "LIMBUSCORE-L_C_POISE_POWER.title": "呼吸法",
+  "LIMBUSCORE-L_C_POISE_POWER.description": "每层[gold]强度[/gold]使暴击率提升 [blue]5%[/blue]。[gold]暴击[/gold]伤害倍率为 [blue]1.2[/blue] 倍。触发指定[gold]次数[/gold]后消失。",
+  "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "接下来的 [blue]{Amount}[/blue] 次攻击暴击率提升 [blue]{Potency}*5%[/blue]（即 [blue]{CritChance}%[/blue]）。[gold]暴击[/gold]伤害倍率为 [blue]1.2[/blue] 倍。",
+
+  "LIMBUSCORE-L_C_SINKING_POWER.title": "沉沦",
+  "LIMBUSCORE-L_C_SINKING_POWER.description": "被击中时：每 [blue]5[/blue] 层[gold]强度[/gold]使本回合[gold]力量[/gold]减少 [blue]1[/blue] 点。触发指定[gold]次数[/gold]后消失。",
+  "LIMBUSCORE-L_C_SINKING_POWER.smartDescription": "被击中时：每 [blue]5[/blue] 层[gold]强度[/gold]使本回合[gold]力量[/gold]减少 [blue]1[/blue] 点。[gold]强度：[/gold] [blue]{Potency}[/blue]。\n[gold]次数：[/gold] [blue]{Amount}[/blue]，每次触发减少 1 次。",
+
+  "LIMBUSCORE-L_C_BURN_POWER.title": "烧伤",
+  "LIMBUSCORE-L_C_BURN_POWER.description": "回合结束时：受到等同于[gold]强度[/gold]的伤害。每回合减少 [blue]1[/blue] 次[gold]次数[/gold]。",
+  "LIMBUSCORE-L_C_BURN_POWER.smartDescription": "回合结束时：受到 [blue]{Potency}[/blue] 点伤害。每回合减少 [blue]1[/blue] 次[gold]次数[/gold]。",
+
+  "LIMBUSCORE-L_C_BLEED_POWER.title": "流血",
+  "LIMBUSCORE-L_C_BLEED_POWER.description": "每次攻击时：受到等同于[gold]强度[/gold]的伤害。每次攻击减少 [blue]1[/blue] 次[gold]次数[/gold]。",
+  "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "每次攻击时：受到 [blue]{Potency}[/blue] 点伤害。每次攻击减少 [blue]1[/blue] 次[gold]次数[/gold]。",
+
+  "LIMBUSCORE-L_C_PARALYZE_POWER.title": "麻痹",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "有概率使下一次造成的伤害固定为 1。触发后消失。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "有 [blue]{ParalyzeChance}%[/blue] 的概率使下一次造成的伤害固定为 1。触发后消失。",
+
+  "LIMBUSCORE-L_C_PROTECTION_POWER.title": "守护",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.description": "本回合内每层使受到的伤害减少 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.smartDescription": "本回合内每层使受到的伤害减少 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",
+
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.title": "下回合守护",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.description": "下回合获得[gold]守护[/gold]。",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.smartDescription": "下回合获得 [blue]{Amount}[/blue] 层[gold]守护[/gold]。",
+
+  "LIMBUSCORE-L_C_GLOOMING_POWER.title": "忧郁",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]沉沦[/gold]现在会造成伤害。被击中时：每 [blue]5[/blue] 层[gold]沉沦强度[/gold]受到 [blue]1[/blue] 点伤害。",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沉沦[/gold]现在会造成伤害。被击中时：每 [blue]5[/blue] 层[gold]沉沦强度[/gold]受到 [blue]1[/blue] 点伤害。"
+}

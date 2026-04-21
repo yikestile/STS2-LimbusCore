@@ -1,0 +1,4 @@
+﻿{
+  "LIMBUS_SANITY.title": "정신력 (SP)",
+  "LIMBUS_SANITY.description": "가한 피해량의 [blue]100%[/blue]만큼 정신력을 얻습니다.\n받은 피해량의 [red]200%[/red]만큼 정신력을 잃습니다.\n처치 시 정신력을 [blue]5[/blue] 얻습니다.\n정신력이 [red]0[/red] 미만일 때: 가하는 피해량이 감소할 확률이 있습니다.\n정신력이 [red]-30[/red]일 때: [red]패닉[/red] 상태에 빠집니다.\n정신력이 [red]-35[/red] ~ [red]-45[/red] 사이일 때: 턴을 완전히 건너뛸 확률이 있습니다."
+}

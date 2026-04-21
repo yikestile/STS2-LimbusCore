@@ -19,7 +19,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using LimbusCore.LimbusCoreCode.Powers; // For IPanicPower
+using LimbusCore.LimbusCoreCode.Powers; 
 using System;
 
 namespace LimbusCore.LimbusCoreCode.Patches;
@@ -42,19 +42,17 @@ public static class SanityPatches
 
     [HarmonyPatch(typeof(Hook), nameof(Hook.AfterDamageGiven))]
     [HarmonyPostfix]
-    public static void AfterDamageGivenPatch(PlayerChoiceContext choiceContext, CombatState combatState, Creature? dealer, DamageResult results, ValueProp props, Creature target, CardModel? cardSource)
+    public static void AfterDamageGivenPatch(PlayerChoiceContext choiceContext, CombatState combatState, Creature? dealer, DamageResult results, ValueProp props, Creature target, CardModel? cardSource, ref Task __result)
     {
         if (!CombatManager.Instance.IsInProgress) return;
-        
         if (dealer != null)
         {
-            var player = dealer.Player; 
+            var player = dealer.Player;
             if (player != null && IsLimbusCharacter(player))
             {
                 if (results.UnblockedDamage > 0)
                 {
                     var spGain = (float)Math.Floor(results.UnblockedDamage * 1f);
-
                     if (cardSource != null)
                     {
                         var prop = cardSource.GetType().GetProperty("IsEgoCard");
@@ -64,23 +62,24 @@ public static class SanityPatches
                         }
                     }
 
-                    SanityManager.ModifySanity(player, spGain); 
+                    SanityManager.ModifySanity(player, spGain);
                 }
                 if (results.WasTargetKilled)
                 {
-                    SanityManager.ModifySanity(player, 5f); 
+                    SanityManager.ModifySanity(player, 5f);
                 }
                 
-                CheckAndApplyPanic(player);
+                // Chain the async wrapper to the original task
+                __result = CheckAndApplyPanicAsyncWrapper(__result, player);
             }
         }
     }
 
     [HarmonyPatch(typeof(Hook), nameof(Hook.AfterDamageReceived))]
     [HarmonyPostfix]
-    public static void LoseSPOnDamage(PlayerChoiceContext choiceContext, IRunState runState, CombatState? combatState, Creature? target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    public static void LoseSPOnDamage(PlayerChoiceContext choiceContext, IRunState runState, CombatState? combatState, Creature? target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource, ref Task __result)
     {
-        if (!CombatManager.Instance.IsInProgress) return; 
+        if (!CombatManager.Instance.IsInProgress) return;
         if (target == null) return;
 
         var player = target.Player; 
@@ -92,31 +91,49 @@ public static class SanityPatches
         var spLoss = (float)Math.Floor(damageTaken * 2f);
         SanityManager.ModifySanity(player, -spLoss); 
 
-        CheckAndApplyPanic(player);
+        // Chain the async wrapper to the original task
+        __result = CheckAndApplyPanicAsyncWrapper(__result, player);
     }
 
     [HarmonyPatch(typeof(Hook), nameof(Hook.BeforeSideTurnStart))]
     [HarmonyPostfix]
-    public static void ResetSanityOnPlayerTurnStart(CombatState combatState, CombatSide side)
+    public static void ResetSanityOnPlayerTurnStart(CombatState combatState, CombatSide side, ref Task __result)
     {
         if (side != CombatSide.Player) return;
+        
+        // Pass the task to the wrapper to handle the async loop
+        __result = ResetSanityAsyncWrapper(__result, combatState);
+    }
+
+    // --- ASYNC WRAPPERS ---
+
+    private static async Task CheckAndApplyPanicAsyncWrapper(Task originalTask, Player player)
+    {
+        if (originalTask != null) await originalTask;
+        await CheckAndApplyPanic(player);
+    }
+
+    private static async Task ResetSanityAsyncWrapper(Task originalTask, CombatState combatState)
+    {
+        if (originalTask != null) await originalTask;
 
         foreach (var player in combatState.Players)
         {
             if (player == null || !IsLimbusCharacter(player)) continue;
-
             var sanityData = SanityManager.GetData(player);
             if (sanityData.NeedsSanityResetAfterStun)
             {
                 SanityManager.ResetSanity(player);
                 sanityData.NeedsSanityResetAfterStun = false;
                 
-                RemovePanic(player);
+                await RemovePanic(player);
             }
             
-            CheckAndApplyPanic(player);
+            await CheckAndApplyPanic(player);
         }
     }
+
+    // ----------------------
 
     private static bool ShouldSkipTurn(Player player)
     {
@@ -133,7 +150,7 @@ public static class SanityPatches
     [HarmonyPrefix]
     public static bool HandleTurnSkip(CombatManager __instance, Player player, HookPlayerChoiceContext playerChoiceContext, ref Task __result)
     {
-        if (!IsLimbusCharacter(player)) return true; 
+        if (!IsLimbusCharacter(player)) return true;
         if (!ShouldSkipTurn(player)) return true; 
 
         SanityManager.GetData(player).NeedsSanityResetAfterStun = true;
@@ -160,19 +177,22 @@ public static class SanityPatches
          if (player == null || !IsLimbusCharacter(player)) return; 
          if (previewMode != CardPreviewMode.None) return;
          if ((modifyDamageHookType & ModifyDamageHookType.Multiplicative) == 0) return;
+         
          var sp = SanityManager.GetSanity(player); 
          if (sp >= 0) return;
          var absSp = Math.Abs(sp);
          var chance = absSp * 3f;
+         
          if (dealer.CombatState == null) return;
          var roll = dealer.CombatState.RunState.Rng.Niche.NextFloat() * 100f;
          if (roll >= chance) return;
+         
          var reductionPct = absSp * 1.5f;
          var multiplier = 1m - ((decimal)reductionPct / 100m);
          __result *= multiplier;
     }
 
-    private static void CheckAndApplyPanic(Player player)
+    private static async Task CheckAndApplyPanic(Player player)
     {
         var sp = SanityManager.GetSanity(player);
         var data = SanityManager.GetData(player);
@@ -180,28 +200,27 @@ public static class SanityPatches
         if (sp <= -30f)
         {
             if (data.PanicPowerType == null) return;
-
             if (!player.Creature.Powers.Any(p => p.GetType() == data.PanicPowerType))
             {
                 var powerInstance = ModelDb.DebugPower(data.PanicPowerType).ToMutable();
                 if (powerInstance != null)
                 {
-                    TaskHelper.RunSafely(PowerCmd.Apply(powerInstance, player.Creature, 1m, player.Creature, null!));
+                    await PowerCmd.Apply(powerInstance, player.Creature, 1m, player.Creature, null!);
                 }
             }
         }
         else if (sp > 0f)
         {
-            RemovePanic(player);
+            await RemovePanic(player);
         }
     }
 
-    private static void RemovePanic(Player player)
+    private static async Task RemovePanic(Player player)
     {
         var panicPower = player.Creature.Powers.FirstOrDefault(p => p is LCPanicPower);
         if (panicPower != null)
         {
-            TaskHelper.RunSafely(PowerCmd.Remove(panicPower));
+            await PowerCmd.Remove(panicPower);
         }
     }
 }
