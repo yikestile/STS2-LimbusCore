@@ -1,0 +1,65 @@
+﻿{
+  "LIMBUSCORE-L_C_EVADE_POWER.title": "Evade",
+  "LIMBUSCORE-L_C_EVADE_POWER.description": "Evade all damage below or equal to the stack amount.",
+  "LIMBUSCORE-L_C_EVADE_POWER.smartDescription": "Evade all damage below or equal to [blue]{Amount}[/blue].",
+
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.title": "Fragile Next Turn",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.description": "Apply [gold]Fragile[/gold] next turn.",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.smartDescription": "Apply [blue]{Amount}[/blue] [gold]Fragile[/gold] next turn.",
+
+  "LIMBUSCORE-L_C_FRAGILE_POWER.title": "Fragile",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.description": "Take [blue]+10%[/blue] damage per stack this turn (Max [blue]100%[/blue]).",
+  "LIMBUSCORE-L_C_FRAGILE_POWER.smartDescription": "Take [blue]+10%[/blue] damage per stack this turn (Max [blue]100%[/blue]).",
+
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.title": "Blunt Fragility",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.description": "Take [blue]+10%[/blue] [gold]Blunt[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+  "LIMBUSCORE-L_C_BLUNT_FRAGILITY.smartDescription": "Take [blue]+10%[/blue] [gold]Blunt[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.title": "Pierce Fragility",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.description": "Take [blue]+10%[/blue] [gold]Pierce[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+  "LIMBUSCORE-L_C_PIERCE_FRAGILITY.smartDescription": "Take [blue]+10%[/blue] [gold]Pierce[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.title": "Slash Fragility",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.description": "Take [blue]+10%[/blue] [gold]Slash[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+  "LIMBUSCORE-L_C_SLASH_FRAGILITY.smartDescription": "Take [blue]+10%[/blue] [gold]Slash[/gold] damage per stack this turn (Max [blue]100%[/blue]).",
+
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.title": "Strength Next Turn",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.description": "Gain [gold]Strength[/gold] next turn.",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Strength[/gold] next turn.",
+
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.title": "Weak Next Turn",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.description": "Gain [gold]Weak[/gold] next turn.",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Weak[/gold] next turn.",
+
+  "LIMBUSCORE-L_C_POISE_POWER.title": "Poise",
+  "LIMBUSCORE-L_C_POISE_POWER.description": "Boost critical hit chance by [blue]5%[/blue] per [gold]Potency[/gold]. [gold]Crit[/gold] damage is [blue]1.2x[/blue]. Lost after a set [gold]Count[/gold] of hits.",
+  "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "Boost critical hit chance by [blue]{Potency}*5%[/blue] ([blue]{CritChance}%[/blue]) for the next [blue]{Amount}[/blue] hits. [gold]Crit[/gold] damage is [blue]1.2x[/blue].",
+
+  "LIMBUSCORE-L_C_SINKING_POWER.title": "Sinking",
+  "LIMBUSCORE-L_C_SINKING_POWER.description": "On hit: Lose [blue]1[/blue] [gold]Strength[/gold] this turn for every [blue]5[/blue] [gold]Potency[/gold]. Lost after a set [gold]Count[/gold] of hits.",
+  "LIMBUSCORE-L_C_SINKING_POWER.smartDescription": "On hit: Lose [blue]1[/blue] [gold]Strength[/gold] this turn for every [blue]5[/blue] [gold]Potency[/gold]. [gold]Potency:[/gold] [blue]{Potency}[/blue]. \n[gold]Count:[/gold] [blue]{Amount}[/blue], decrease by 1 each activation.",
+
+  "LIMBUSCORE-L_C_BURN_POWER.title": "Burn",
+  "LIMBUSCORE-L_C_BURN_POWER.description": "Turn End: Take damage equal to [gold]Potency[/gold]. Lose [blue]1[/blue] [gold]Count[/gold] each turn.",
+  "LIMBUSCORE-L_C_BURN_POWER.smartDescription": "Turn End: Take [blue]{Potency}[/blue] damage. Lose [blue]1[/blue] [gold]Count[/gold] each turn.",
+
+  "LIMBUSCORE-L_C_BLEED_POWER.title": "Bleed",
+  "LIMBUSCORE-L_C_BLEED_POWER.description": "Take damage equal to [gold]Potency[/gold] each time this unit attacks. Lose [blue]1[/blue] [gold]Count[/gold] each attack.",
+  "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "Take [blue]{Potency}[/blue] damage each time this unit attacks. Lose [blue]1[/blue] [gold]Count[/gold] each attack.",
+
+  "LIMBUSCORE-L_C_PARALYZE_POWER.title": "Paralyze",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "Has a chance to fix the next instance of damage dealt to 1. Removed after activation.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue] chance to fix the next instance of damage dealt to 1. Removed after activation.",
+
+  "LIMBUSCORE-L_C_PROTECTION_POWER.title": "Protection",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.description": "Take [blue]-10%[/blue] damage per stack this turn (Max [blue]100%[/blue]).",
+  "LIMBUSCORE-L_C_PROTECTION_POWER.smartDescription": "Take [blue]-10%[/blue] damage per stack this turn (Max [blue]100%[/blue]).",
+
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.title": "Protection Next Turn",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.description": "Gain [gold]Protection[/gold] next turn.",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Protection[/gold] next turn.",
+
+  "LIMBUSCORE-L_C_GLOOMING_POWER.title": "Glooming",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]Sinking[/gold] now deals damage. On hit: Take [blue]1[/blue] Damage for every [blue]5[/blue] [gold]Sinking Potency[/gold].",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]Sinking[/gold] now deals damage. On hit: Take [blue]1[/blue] Damage for every [blue]5[/blue] [gold]Sinking Potency[/gold]."
+}

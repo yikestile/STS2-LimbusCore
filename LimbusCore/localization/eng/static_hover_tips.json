@@ -1,0 +1,4 @@
+﻿{
+  "LIMBUS_SANITY.title": "Sanity Point (SP)",
+  "LIMBUS_SANITY.description": "Gain SP equal to [blue]100%[/blue] damage dealt.\nLose SP equal to [red]200%[/red] damage taken.\nGain [blue]5[/blue] SP on kill.\nAt below [red]0[/red] SP: has a chance to deal less damage.\nAt [red]-30[/red] SP: enters a [red]Panic[/red].\nAt [red]-35[/red] to [red]-45[/red] SP: has a chance to completely skip a turn."
+}

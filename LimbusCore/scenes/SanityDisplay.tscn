@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=3 uid="uid://bqrjdp60fwy83"]
+
+[ext_resource type="Script" uid="uid://cbx55hd2wgfcj" path="res://LimbusCoreCode/Mechanics/NSanityDisplay.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://d2qw13crq4phn" path="res://LimbusCore/scenes/SanityIcon.png" id="2"]
+[ext_resource type="Shader" uid="uid://cbs2n1cbrv6yv" path="res://LimbusCore/scenes/RippleShader.gdshader" id="3"]
+[ext_resource type="Texture2D" uid="uid://cqs5ope8avijs" path="res://LimbusCore/animation/vfx/Noise18_2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cw4wblbmt181d" path="res://LimbusCore/scenes/Ripple.png" id="5"]
+[ext_resource type="FontFile" uid="uid://b1e7upjgpqkl5" path="res://LimbusCore/ExcelsiorSans.ttf" id="6"]
+[ext_resource type="Shader" uid="uid://4tq5yse8hk4y" path="res://LimbusCore/scenes/ScrollingInk.gdshader" id="7_l0ikn"]
+
+[sub_resource type="Gradient" id="Gradient_42sdq"]
+offsets = PackedFloat32Array(0, 0.5689655, 1)
+colors = PackedColorArray(0.65, 0.046800017, 0.026000014, 1, 0.6, 0.645, 0.75, 1, 0.19999999, 0.6, 1, 1)
+
+[sub_resource type="Environment" id="Environment_xk7p3"]
+background_mode = 3
+glow_enabled = true
+adjustment_enabled = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_42sdq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hugya"]
+shader = ExtResource("3")
+shader_parameter/dissolve_noise_tex = ExtResource("4")
+shader_parameter/dissolve_value = 0.0
+shader_parameter/noise_rotation = 0.0
+shader_parameter/ripple_speed = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0st3g"]
+shader = ExtResource("7_l0ikn")
+shader_parameter/activity = 0.250000011875
+shader_parameter/u_time = 0.0
+shader_parameter/is_top = true
+shader_parameter/ink_color = Color(1, 0.85, 0.2, 1)
+shader_parameter/act_min = 0.05
+shader_parameter/act_max = 0.25
+
+[node name="SanityDisplay" type="Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 188.0
+offset_bottom = 248.0
+grow_vertical = 0
+mouse_filter = 1
+script = ExtResource("1")
+SanityGradient = SubResource("Gradient_42sdq")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xk7p3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("CanvasItemMaterial_42sdq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RippleEffect" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_hugya")
+position = Vector2(64, 64)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SPValueLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.60784316, 0.7019608, 0.9647059, 0.88235295)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("6")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 36
+theme_override_font_sizes/bold_italics_font_size = 36
+theme_override_font_sizes/italics_font_size = 36
+theme_override_font_sizes/mono_font_size = 36
+bbcode_enabled = true
+text = "[center]0[/center]"
+scroll_active = false
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0st3g")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
