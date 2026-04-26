@@ -1,11 +1,11 @@
 ﻿{
   "LIMBUSCORE-L_C_EVADE_POWER.title": "회피",
-  "LIMBUSCORE-L_C_EVADE_POWER.description": "중첩 수치 이하의 모든 피해를 회피합니다.",
+  "LIMBUSCORE-L_C_EVADE_POWER.description": "중첩된 수치 이하의 모든 피해를 회피합니다.",
   "LIMBUSCORE-L_C_EVADE_POWER.smartDescription": "[blue]{Amount}[/blue] 이하의 모든 피해를 회피합니다.",
 
-  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.title": "다음 턴 취약",
-  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.description": "다음 턴에 [gold]취약[/gold]을 얻습니다.",
-  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.smartDescription": "다음 턴에 [gold]취약[/gold] [blue]{Amount}[/blue]을 얻습니다.",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.title": "취약(다음 턴)",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.description": "다음 턴에 [purple]취약[/purple]을 부여합니다.",
+  "LIMBUSCORE-L_C_FRAGILE_NEXT_TURN.smartDescription": "다음 턴에 [purple]취약[/purple]을 [blue]{Amount}[/blue] 부여합니다.",
 
   "LIMBUSCORE-L_C_FRAGILE_POWER.title": "취약",
   "LIMBUSCORE-L_C_FRAGILE_POWER.description": "이번 턴에 받는 피해량이 중첩당 [blue]+10%[/blue] 증가합니다. (최대 [blue]100%[/blue])",
@@ -23,43 +23,43 @@
   "LIMBUSCORE-L_C_SLASH_FRAGILITY.description": "이번 턴에 받는 [gold]참격[/gold] 피해량이 중첩당 [blue]+10%[/blue] 증가합니다. (최대 [blue]100%[/blue])",
   "LIMBUSCORE-L_C_SLASH_FRAGILITY.smartDescription": "이번 턴에 받는 [gold]참격[/gold] 피해량이 중첩당 [blue]+10%[/blue] 증가합니다. (최대 [blue]100%[/blue])",
 
-  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.title": "다음 턴 힘",
-  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.description": "다음 턴에 [gold]힘[/gold]을 얻습니다.",
-  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.smartDescription": "다음 턴에 [gold]힘[/gold] [blue]{Amount}[/blue]을 얻습니다.",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.title": "위력 증가(다음 턴)",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.description": "다음 턴에 [gold]힘[/gold]를 얻습니다.",
+  "LIMBUSCORE-L_C_STRENGTH_NEXT_TURN.smartDescription": "다음 턴에 [gold]힘[/gold]를 [blue]{Amount}[/blue] 얻습니다.",
 
-  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.title": "다음 턴 허약",
-  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.description": "다음 턴에 [gold]허약[/gold]을 얻습니다.",
-  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "다음 턴에 [gold]허약[/gold] [blue]{Amount}[/blue]을 얻습니다.",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.title": "위력 감소(다음 턴)",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.description": "다음 턴에 [gold]약화[/gold] 얻습니다.",
+  "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "다음 턴에 [gold]약화[/gold] [blue]{Amount}[/blue] 얻습니다.",
 
   "LIMBUSCORE-L_C_POISE_POWER.title": "호흡",
-  "LIMBUSCORE-L_C_POISE_POWER.description": "[gold]위력[/gold]당 치명타 확률이 [blue]5%[/blue] 증가합니다. [gold]치명타[/gold] 피해량이 [blue]1.2배[/blue]가 됩니다. 정해진 [gold]횟수[/gold]만큼 공격하면 소멸합니다.",
-  "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "치명타 확률이 [blue]{Potency}*5%[/blue] ([blue]{CritChance}%[/blue])만큼 증가합니다. (남은 [gold]횟수[/gold]: [blue]{Amount}[/blue]) [gold]치명타[/gold] 피해량이 [blue]1.2배[/blue]가 됩니다.",
+  "LIMBUSCORE-L_C_POISE_POWER.description": "[gold]위력[/gold]당 치명타 확률이 [blue]5%[/blue] 증가합니다. 치명타는 [blue]1.2배[/blue]의 피해를 줍니다. 설정된 [gold]횟수[/gold]만큼 치명타 발동시 소모됨.",
+  "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "다음 [blue]{Amount}[/blue]회 공격의 치명타 확률이 [blue]{CritChance}%[/blue] 증가합니다. 치명타는 [blue]1.2배[/blue]의 피해를 줍니다. (치명타 발동시 1 감소)",
 
   "LIMBUSCORE-L_C_SINKING_POWER.title": "침잠",
-  "LIMBUSCORE-L_C_SINKING_POWER.description": "적중 시: [gold]위력[/gold] 5당 이번 턴 동안 [gold]힘[/gold]이 [blue]1[/blue] 감소합니다. 정해진 [gold]횟수[/gold]만큼 적중당하면 소멸합니다.",
-  "LIMBUSCORE-L_C_SINKING_POWER.smartDescription": "적중 시: [gold]위력[/gold] 5당 이번 턴 동안 [gold]힘[/gold]이 [blue]1[/blue] 감소합니다. [gold]위력:[/gold] [blue]{Potency}[/blue]. \n[gold]횟수:[/gold] [blue]{Amount}[/blue] (발동 시마다 1 감소)",
+  "LIMBUSCORE-L_C_SINKING_POWER.description": "피격 시 [gold]위력[/gold] [blue]5[/blue]당 이번 턴 [gold]힘[/gold]이 [blue]1[/blue], [gold]침잠 횟수[/gold]가 [blue]1[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_SINKING_POWER.smartDescription": "피격 시 [gold]위력[/gold] [blue]5[/blue]당 이번 턴 [gold]힘[/gold] [blue]1[/blue] 감소.\n[gold]위력:[/gold] [blue]{Potency}[/blue], [gold]횟수:[/gold] [blue]{Amount}[/blue] (발동 시 1 감소)",
 
   "LIMBUSCORE-L_C_BURN_POWER.title": "화상",
-  "LIMBUSCORE-L_C_BURN_POWER.description": "턴 종료 시: [gold]위력[/gold]만큼 피해를 입습니다. 매 턴 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
-  "LIMBUSCORE-L_C_BURN_POWER.smartDescription": "턴 종료 시: [blue]{Potency}[/blue] 피해를 입습니다. 매 턴 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_BURN_POWER.description": "턴 종료 시 [gold]위력[/gold]만큼 피해를 입습니다. 매 턴 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_BURN_POWER.smartDescription": "턴 종료 시 [blue]{Potency}[/blue]만큼 피해를 입습니다.\n[gold]위력:[/gold] [blue]{Potency}[/blue], [gold]횟수:[/gold] [blue]{Amount}[/blue] (턴 종료 시 1 감소)",
 
   "LIMBUSCORE-L_C_BLEED_POWER.title": "출혈",
-  "LIMBUSCORE-L_C_BLEED_POWER.description": "공격할 때마다 [gold]위력[/gold]만큼 피해를 입습니다. 공격할 때마다 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
-  "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "공격할 때마다 [blue]{Potency}[/blue] 피해를 입습니다. 공격할 때마다 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_BLEED_POWER.description": "공격 시 [gold]위력[/gold]만큼 피해를 입습니다. 공격할 때마다 [gold]횟수[/gold]가 [blue]1[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "공격 시 [blue]{Potency}[/blue] 피해를 입습니다.\n[gold]위력:[/gold] [blue]{Potency}[/blue], [gold]횟수:[/gold] [blue]{Amount}[/blue] (공격 시 1 감소)",
 
   "LIMBUSCORE-L_C_PARALYZE_POWER.title": "마비",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "다음 공격으로 가하는 피해량이 1이 될 확률이 있습니다. 발동 후 제거됩니다.",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue] 확률로 다음 공격으로 가하는 피해량이 1이 됩니다. 발동 후 제거됩니다.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "다음 공격으로 가하는 피해량이 1로 고정될 확률이 있습니다. 발동 시 소모됩니다.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue] 확률로 가하는 피해량이 1로 고정될 수 있습니다.\n발동 후 소모됩니다.",
 
   "LIMBUSCORE-L_C_PROTECTION_POWER.title": "보호",
   "LIMBUSCORE-L_C_PROTECTION_POWER.description": "이번 턴에 받는 피해량이 중첩당 [blue]-10%[/blue] 감소합니다. (최대 [blue]100%[/blue])",
   "LIMBUSCORE-L_C_PROTECTION_POWER.smartDescription": "이번 턴에 받는 피해량이 중첩당 [blue]-10%[/blue] 감소합니다. (최대 [blue]100%[/blue])",
 
-  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.title": "다음 턴 보호",
-  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.description": "다음 턴에 [gold]보호[/gold]를 얻습니다.",
-  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.smartDescription": "다음 턴에 [gold]보호[/gold] [blue]{Amount}[/blue]를 얻습니다.",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.title": "보호(다음 턴)",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.description": "다음 턴에 [gold]보호[/gold] 얻습니다.",
+  "LIMBUSCORE-L_C_PROTECTION_NEXT_TURN.smartDescription": "다음 턴에 [gold]보호[/gold] [blue]{Amount}[/blue] 얻습니다.",
 
-  "LIMBUSCORE-L_C_GLOOMING_POWER.title": "우울",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]침잠[/gold]이 이제 피해를 입힙니다. 적중 시: [gold]침잠 위력[/gold] 5당 [blue]1[/blue] 피해를 입힙니다.",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]침잠[/gold]이 이제 피해를 입힙니다. 적중 시: [gold]침잠 위력[/gold] 5당 [blue]1[/blue] 피해를 입힙니다."
+  "LIMBUSCORE-L_C_GLOOMING_POWER.title": "침울",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]침잠[/gold]이 피해를 줍니다. 피격 시 [gold]침잠 위력[/gold] [blue]5[/blue]당 [blue]1[/blue] 피해를 줍니다.",
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]침잠[/gold]이 피해를 줍니다. 피격 시 [gold]침잠 위력[/gold] [blue]5[/blue]당 [blue]1[/blue] 피해를 줍니다."
 }

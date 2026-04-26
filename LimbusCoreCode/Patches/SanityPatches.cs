@@ -45,6 +45,7 @@ public static class SanityPatches
     public static void AfterDamageGivenPatch(PlayerChoiceContext choiceContext, CombatState combatState, Creature? dealer, DamageResult results, ValueProp props, Creature target, CardModel? cardSource, ref Task __result)
     {
         if (!CombatManager.Instance.IsInProgress) return;
+        
         if (dealer != null)
         {
             var player = dealer.Player;
@@ -69,8 +70,7 @@ public static class SanityPatches
                     SanityManager.ModifySanity(player, 5f);
                 }
                 
-                // Chain the async wrapper to the original task
-                __result = CheckAndApplyPanicAsyncWrapper(__result, player);
+                __result = WrapCheckPanic(__result, player);
             }
         }
     }
@@ -91,8 +91,7 @@ public static class SanityPatches
         var spLoss = (float)Math.Floor(damageTaken * 2f);
         SanityManager.ModifySanity(player, -spLoss); 
 
-        // Chain the async wrapper to the original task
-        __result = CheckAndApplyPanicAsyncWrapper(__result, player);
+        __result = WrapCheckPanic(__result, player);
     }
 
     [HarmonyPatch(typeof(Hook), nameof(Hook.BeforeSideTurnStart))]
@@ -101,40 +100,35 @@ public static class SanityPatches
     {
         if (side != CombatSide.Player) return;
         
-        // Pass the task to the wrapper to handle the async loop
-        __result = ResetSanityAsyncWrapper(__result, combatState);
+        __result = WrapResetSanity(__result, combatState);
     }
-
-    // --- ASYNC WRAPPERS ---
-
-    private static async Task CheckAndApplyPanicAsyncWrapper(Task originalTask, Player player)
+    
+    private static async Task WrapCheckPanic(Task original, Player player)
     {
-        if (originalTask != null) await originalTask;
+        if (original != null) await original;
         await CheckAndApplyPanic(player);
     }
 
-    private static async Task ResetSanityAsyncWrapper(Task originalTask, CombatState combatState)
+    private static async Task WrapResetSanity(Task original, CombatState combatState)
     {
-        if (originalTask != null) await originalTask;
+        if (original != null) await original;
 
         foreach (var player in combatState.Players)
         {
             if (player == null || !IsLimbusCharacter(player)) continue;
+
             var sanityData = SanityManager.GetData(player);
             if (sanityData.NeedsSanityResetAfterStun)
             {
                 SanityManager.ResetSanity(player);
                 sanityData.NeedsSanityResetAfterStun = false;
-                
                 await RemovePanic(player);
             }
             
             await CheckAndApplyPanic(player);
         }
     }
-
-    // ----------------------
-
+    
     private static bool ShouldSkipTurn(Player player)
     {
         var sp = SanityManager.GetSanity(player);
@@ -153,6 +147,12 @@ public static class SanityPatches
         if (!IsLimbusCharacter(player)) return true;
         if (!ShouldSkipTurn(player)) return true; 
 
+        __result = PerformTurnSkip(player);
+        return false;
+    }
+
+    private static async Task PerformTurnSkip(Player player)
+    {
         SanityManager.GetData(player).NeedsSanityResetAfterStun = true;
         
         var vfx = NStunnedVfx.Create(player.Creature);
@@ -162,10 +162,9 @@ public static class SanityPatches
         }
         SfxCmd.Play("event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_stun");
 
-        Callable.From(() => { __instance.SetReadyToEndTurn(player, false); }).CallDeferred();
+        await Task.Delay(100);
 
-        __result = Task.CompletedTask;
-        return false;
+        PlayerCmd.EndTurn(player, canBackOut: false);
     }
     
     [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyDamage))]
@@ -205,7 +204,8 @@ public static class SanityPatches
                 var powerInstance = ModelDb.DebugPower(data.PanicPowerType).ToMutable();
                 if (powerInstance != null)
                 {
-                    await PowerCmd.Apply(powerInstance, player.Creature, 1m, player.Creature, null!);
+                    await PowerCmd.Apply(new ThrowingPlayerChoiceContext(), powerInstance, player.Creature, 1m, player.Creature, null!);
+                    
                 }
             }
         }

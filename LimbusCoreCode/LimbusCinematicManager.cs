@@ -88,7 +88,6 @@ namespace LimbusCore.LimbusCoreCode
         
         public static void PreloadBackground()
         {
-            // CONFIG CHECK: Extended Backgrounds
             if (!LimbusCoreConfig.EnableMapExtension) return;
 
             var combatRoom = NCombatRoom.Instance;

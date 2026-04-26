@@ -12,10 +12,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LimbusCore.LimbusCoreCode.Mechanics;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using LimbusCore.LimbusCoreCode.Patches;
 
 namespace LimbusCore.LimbusCoreCode.Powers;
 
-public sealed class LCPoisePower : LimbusCorePower
+public sealed class LCPoisePower : LimbusCorePower, IHasSecondAmount
 {
     private class Data
     {
@@ -49,31 +51,32 @@ public sealed class LCPoisePower : LimbusCorePower
     public override bool IsInstanced => false;
     public override int DisplayAmount => Count;
     
-    public LCPoisePower()
+    public LCPoisePower() : base()
     {
     }
 
-    public LCPoisePower(int count) : this(count, 1)
+    public static async Task Apply(PlayerChoiceContext context, Creature target, int count, int potency, Creature? applier, CardModel? source)
     {
+        var p = await PowerCmd.Apply<LCPoisePower>(context, target, (decimal)count, applier, source);
+        if (p != null)
+        {
+            p.Potency += potency;
+        }
     }
-    
-    public LCPoisePower(int count, int potency)
+
+    public string GetSecondAmount() => Potency.ToString();
+
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        SetAmount(count);
-        amount2 = potency;
         UpdateDynamicVars();
-    }
-    
-    public void AddPotency(int newPotency)
-    {
-        AssertMutable();
-        Potency += newPotency;
+        await Task.CompletedTask;
     }
 
     private void UpdateDynamicVars()
     {
-        DynamicVars["Potency"].BaseValue = amount2;
-        DynamicVars["CritChance"].BaseValue = amount2 * 5;
+        if (DynamicVars == null) return;
+        DynamicVars["Potency"].BaseValue = Potency;
+        DynamicVars["CritChance"].BaseValue = Potency * 5;
     }
 
     protected override object InitInternalData() => new Data();
@@ -85,7 +88,6 @@ public sealed class LCPoisePower : LimbusCorePower
         if (command.ModelSource is not CardModel cardModel || cardModel.Owner.Creature != Owner || cardModel.Type != CardType.Attack)
             return Task.CompletedTask;
 
-        // Reset crit flag for new attack
         CritRegistry.WasLastAttackCrit[Owner] = false;
 
         Data internalData = GetInternalData<Data>();
@@ -122,12 +124,18 @@ public sealed class LCPoisePower : LimbusCorePower
         Data internalData = GetInternalData<Data>();
         if (internalData.commandToModify != null && cardSource == internalData.commandToModify.ModelSource)
         {
-            return 1.2m;
+            decimal multiplier = 1.2m;
+            var critDmgPower = Owner.GetPower<LCCritDmgUp>();
+            if (critDmgPower != null)
+            {
+                multiplier += (decimal)critDmgPower.Amount * 0.1m;
+            }
+            return multiplier;
         }
         return 1m;
     }
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
         Data internalData = GetInternalData<Data>();
         if (command == internalData.commandToModify)
@@ -136,5 +144,23 @@ public sealed class LCPoisePower : LimbusCorePower
             internalData.forceCrit = false;
             await PowerCmd.Decrement(this);
         }
+    }
+
+    public bool CanConsumePotency(int amount)
+    {
+        return Potency >= amount;
+    }
+
+    public async Task ConsumePotency(int amount)
+    {
+        if (CanConsumePotency(amount))
+        {
+            Potency -= amount;
+            if (Potency <= 0)
+            {
+
+            }
+        }
+        await Task.CompletedTask;
     }
 }

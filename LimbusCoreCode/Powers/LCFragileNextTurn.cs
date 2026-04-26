@@ -5,6 +5,7 @@ using LimbusCore.LimbusCoreCode.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace LimbusCore.LimbusCoreCode.Powers;
 
@@ -14,13 +15,13 @@ public sealed class LCFragileNextTurn : LimbusCorePower
 
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterSideTurnStart(CombatSide side, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide side, ICombatState state)
     {
         if (side == CombatSide.Player)
         {
             Flash();
-            await PowerCmd.Apply<LCFragilePower>(Owner, base.Amount, Owner, null);
-            await PowerCmd.Remove( this);
+            await PowerCmd.Apply<LCFragilePower>(new ThrowingPlayerChoiceContext(), Owner, base.Amount, Owner, null);
+            await PowerCmd.Remove(this);
         }
     }
 }

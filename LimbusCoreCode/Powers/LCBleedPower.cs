@@ -12,17 +12,18 @@ using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer; // Added for ThrowingPlayerChoiceContext
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using LimbusCore.LimbusCoreCode.Patches;
 
 namespace LimbusCore.LimbusCoreCode.Powers;
 
-public sealed class LCBleedPower : LimbusCorePower
+public sealed class LCBleedPower : LimbusCorePower, IHasSecondAmount
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool IsInstanced => false;
 
-    public int amount2;
+    public int amount2; // Potency
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>
     {
@@ -44,32 +45,36 @@ public sealed class LCBleedPower : LimbusCorePower
     public int Count => (int)base.Amount;
     public override int DisplayAmount => Count;
 
-    public LCBleedPower() { }
+    public LCBleedPower() : base() { }
     
-    public LCBleedPower(int count, int potency)
+    public static async Task Apply(PlayerChoiceContext context, Creature target, int count, int potency, Creature? applier, CardModel? source)
     {
-        SetAmount(count);
-        amount2 = potency;
-        UpdateDynamicVars();
+        var p = await PowerCmd.Apply<LCBleedPower>(context, target, (decimal)count, applier, source);
+        if (p != null)
+        {
+            p.Potency += potency;
+        }
     }
-    
-    public void AddPotency(int extraPotency)
+
+    public string GetSecondAmount() => Potency.ToString();
+
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        AssertMutable();
-        Potency += extraPotency;
+        UpdateDynamicVars();
+        await Task.CompletedTask;
     }
 
     private void UpdateDynamicVars()
     {
-        DynamicVars["Potency"].BaseValue = amount2;
+        DynamicVars["Potency"].BaseValue = Potency;
     }
 
-    public override async Task AfterAttack(AttackCommand command)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
         if (Owner.IsAlive && Count > 0 && Potency > 0)
         {
             Flash();
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Potency, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.SkipHurtAnim, null, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, (decimal)Potency, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.SkipHurtAnim, null, null);
             
             await PowerCmd.Decrement(this);
         }

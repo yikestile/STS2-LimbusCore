@@ -30,7 +30,7 @@ public sealed class LCParalyzePower : LimbusCorePower
         return Task.CompletedTask;
     }
 
-    public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
+    public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
     {
         UpdateDynamicVars();
         return Task.CompletedTask;

@@ -61,5 +61,11 @@
 
   "LIMBUSCORE-L_C_GLOOMING_POWER.title": "Glooming",
   "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]Sinking[/gold] now deals damage. On hit: Take [blue]1[/blue] Damage for every [blue]5[/blue] [gold]Sinking Potency[/gold].",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]Sinking[/gold] now deals damage. On hit: Take [blue]1[/blue] Damage for every [blue]5[/blue] [gold]Sinking Potency[/gold]."
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]Sinking[/gold] now deals damage. On hit: Take [blue]1[/blue] Damage for every [blue]5[/blue] [gold]Sinking Potency[/gold].",
+
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.title": "Crit DMG Up",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.description": "Gain 10% Crit Damage Up per stack.",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.smartDescription": "Increase [gold]Crit Damage[/gold] by [blue]{CritBonus}%[/blue]."
+
+
 }

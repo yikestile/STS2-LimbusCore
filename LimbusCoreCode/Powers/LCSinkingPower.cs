@@ -12,10 +12,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Saves;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LimbusCore.LimbusCoreCode.Patches;
 
 namespace LimbusCore.LimbusCoreCode.Powers;
 
-public sealed class LCSinkingPower : LimbusCorePower
+public sealed class LCSinkingPower : LimbusCorePower, IHasSecondAmount
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -43,30 +44,30 @@ public sealed class LCSinkingPower : LimbusCorePower
     public int Count => (int)base.Amount;
     public override int DisplayAmount => Count;
 
-    public LCSinkingPower()
-    {
-    }
-    
-    public LCSinkingPower(int count) : this(count, 1)
+    public LCSinkingPower() : base()
     {
     }
 
-    public LCSinkingPower(int count, int potency)
+    public static async Task Apply(PlayerChoiceContext context, Creature target, int count, int potency, Creature? applier, CardModel? source)
     {
-        SetAmount(count);
-        amount2 = potency;
-        UpdateDynamicVars();
+        var p = await PowerCmd.Apply<LCSinkingPower>(context, target, (decimal)count, applier, source);
+        if (p != null)
+        {
+            p.Potency += potency;
+        }
     }
-    
-    public void AddPotency(int extraPotency)
+
+    public string GetSecondAmount() => Potency.ToString();
+
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        AssertMutable();
-        Potency += extraPotency;
+        UpdateDynamicVars();
+        await Task.CompletedTask;
     }
 
     private void UpdateDynamicVars()
     {
-        DynamicVars["Potency"].BaseValue = amount2;
+        DynamicVars["Potency"].BaseValue = Potency;
     }
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
@@ -79,8 +80,8 @@ public sealed class LCSinkingPower : LimbusCorePower
 
             if (strengthReduction > 0)
             {
-                await PowerCmd.Apply<StrengthPower>(Owner, -strengthReduction, Owner, null);
-                await PowerCmd.Apply<LCStrengthNextTurn>(Owner, strengthReduction, Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner, -strengthReduction, Owner, null);
+                await PowerCmd.Apply<LCStrengthNextTurn>(choiceContext, Owner, strengthReduction, Owner, null);
             }
             
             if (Owner.HasPower<LCGloomingPower>())
@@ -88,7 +89,7 @@ public sealed class LCSinkingPower : LimbusCorePower
                 int damageFromSinking = Potency / 5;
                 if (damageFromSinking > 0)
                 {
-                    await CreatureCmd.Damage(choiceContext, Owner, damageFromSinking, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+                    await CreatureCmd.Damage(choiceContext, Owner, (decimal)damageFromSinking, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
                 }
             }
             

@@ -12,16 +12,17 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LimbusCore.LimbusCoreCode.Patches;
 
 namespace LimbusCore.LimbusCoreCode.Powers;
 
-public sealed class LCBurnPower : LimbusCorePower
+public sealed class LCBurnPower : LimbusCorePower, IHasSecondAmount
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override bool IsInstanced => false;
 
-    public int amount2; // Potency
+    public int amount2;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>
     {
@@ -43,24 +44,30 @@ public sealed class LCBurnPower : LimbusCorePower
     public int Count => (int)base.Amount;
     public override int DisplayAmount => Count;
 
-    public LCBurnPower() { }
-    
-    public LCBurnPower(int count, int potency)
+    public LCBurnPower() : base()
     {
-        SetAmount(count);
-        amount2 = potency;
-        UpdateDynamicVars();
     }
-    
-    public void AddPotency(int extraPotency)
+
+    public static async Task Apply(PlayerChoiceContext context, Creature target, int count, int potency, Creature? applier, CardModel? source)
     {
-        AssertMutable();
-        Potency += extraPotency;
+        var p = await PowerCmd.Apply<LCBurnPower>(context, target, (decimal)count, applier, source);
+        if (p != null)
+        {
+            p.Potency += potency;
+        }
+    }
+
+    public string GetSecondAmount() => Potency.ToString();
+
+    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    {
+        UpdateDynamicVars();
+        await Task.CompletedTask;
     }
 
     private void UpdateDynamicVars()
     {
-        DynamicVars["Potency"].BaseValue = amount2;
+        DynamicVars["Potency"].BaseValue = Potency;
     }
 
     public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
@@ -68,7 +75,7 @@ public sealed class LCBurnPower : LimbusCorePower
         if (side == Owner.Side && Owner.IsAlive && Count > 0 && Potency > 0)
         {
             Flash();
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Potency, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, (decimal)Potency, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
             
             await PowerCmd.Decrement(this);
         }

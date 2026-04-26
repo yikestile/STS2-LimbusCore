@@ -42,7 +42,7 @@ public sealed class LCEvadePower : LimbusCorePower
         return amount;
     }
   
-    public override async Task AfterSideTurnStart(CombatSide combatSide, CombatState combatState)
+    public override async Task AfterSideTurnStart(CombatSide combatSide, ICombatState state)
     {
         if (combatSide == CombatSide.Player)
         {
