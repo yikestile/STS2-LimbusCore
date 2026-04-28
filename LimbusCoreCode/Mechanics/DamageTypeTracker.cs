@@ -13,4 +13,6 @@ public static class DamageTypeTracker
     public static readonly SpireField<Creature, int> SlashFragilityReward = new SpireField<Creature, int>(() => 0);
     public static readonly SpireField<Creature, int> BluntFragilityReward = new SpireField<Creature, int>(() => 0);
     public static readonly SpireField<Creature, int> PierceFragilityReward = new SpireField<Creature, int>(() => 0);
+    
+    public static readonly SpireField<Creature, LimbusDamageType> LastDamageType = new SpireField<Creature, LimbusDamageType>(() => LimbusDamageType.None);
 }

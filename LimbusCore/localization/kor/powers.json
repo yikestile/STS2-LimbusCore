@@ -32,7 +32,7 @@
   "LIMBUSCORE-L_C_WEAK_NEXT_TURN.smartDescription": "다음 턴에 [gold]약화[/gold] [blue]{Amount}[/blue] 얻습니다.",
 
   "LIMBUSCORE-L_C_POISE_POWER.title": "호흡",
-  "LIMBUSCORE-L_C_POISE_POWER.description": "[gold]위력[/gold]당 치명타 확률이 [blue]5%[/blue] 증가합니다. 치명타는 [blue]1.2배[/blue]의 피해를 줍니다. 설정된 [gold]횟수[/gold]만큼 치명타 발동시 소모됨.",
+  "LIMBUSCORE-L_C_POISE_POWER.description": "[gold]위력[/gold]당 치명타 확률이 [blue]5%[/blue] 증가합니다. 치명타는 [blue]1.2배[/blue]의 피해를 줍니다. 설정된 [gold]횟수[/gold]만큼 치명타 발동시 소모됩니다.",
   "LIMBUSCORE-L_C_POISE_POWER.smartDescription": "다음 [blue]{Amount}[/blue]회 공격의 치명타 확률이 [blue]{CritChance}%[/blue] 증가합니다. 치명타는 [blue]1.2배[/blue]의 피해를 줍니다. (치명타 발동시 1 감소)",
 
   "LIMBUSCORE-L_C_SINKING_POWER.title": "침잠",
@@ -61,5 +61,9 @@
 
   "LIMBUSCORE-L_C_GLOOMING_POWER.title": "침울",
   "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]침잠[/gold]이 피해를 줍니다. 피격 시 [gold]침잠 위력[/gold] [blue]5[/blue]당 [blue]1[/blue] 피해를 줍니다.",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]침잠[/gold]이 피해를 줍니다. 피격 시 [gold]침잠 위력[/gold] [blue]5[/blue]당 [blue]1[/blue] 피해를 줍니다."
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]침잠[/gold]이 피해를 줍니다. 피격 시 [gold]침잠 위력[/gold] [blue]5[/blue]당 [blue]1[/blue] 피해를 줍니다.",
+
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.title": "치명타 피해 증가",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.description": "중첩당 치명타 피해량이 10% 증가합니다.",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.smartDescription": "치명타 피해량이 [blue]{CritBonus}%[/blue] 증가합니다."
 }

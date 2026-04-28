@@ -61,5 +61,9 @@
 
   "LIMBUSCORE-L_C_GLOOMING_POWER.title": "憂鬱",
   "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]沈潜[/gold]がダメージを与えるようになります。的中時: [gold]沈潜威力[/gold]5につき[blue]1[/blue]ダメージを受けます。",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沈潜[/gold]がダメージを与えるようになります。的中時: [gold]沈潜威力[/gold]5につき[blue]1[/blue]ダメージを受けます。"
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沈潜[/gold]がダメージを与えるようになります。的中時: [gold]沈潜威力[/gold]5につき[blue]1[/blue]ダメージを受けます。",
+
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.title": "クリティカルダメージ増加",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.description": "1スタックにつき、クリティカルダメージが10%増加します。",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.smartDescription": "[gold]クリティカルダメージ[/gold]が[blue]{CritBonus}%[/blue]増加します。"
 }

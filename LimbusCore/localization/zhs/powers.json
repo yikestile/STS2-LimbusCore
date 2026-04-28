@@ -61,5 +61,10 @@
 
   "LIMBUSCORE-L_C_GLOOMING_POWER.title": "忧郁",
   "LIMBUSCORE-L_C_GLOOMING_POWER.description": "[gold]沉沦[/gold]现在会造成伤害。被击中时：每 [blue]5[/blue] 层[gold]沉沦强度[/gold]受到 [blue]1[/blue] 点伤害。",
-  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沉沦[/gold]现在会造成伤害。被击中时：每 [blue]5[/blue] 层[gold]沉沦强度[/gold]受到 [blue]1[/blue] 点伤害。"
+  "LIMBUSCORE-L_C_GLOOMING_POWER.smartDescription": "[gold]沉沦[/gold]现在会造成伤害。被击中时：每 [blue]5[/blue] 层[gold]沉沦强度[/gold]受到 [blue]1[/blue] 点伤害。",
+
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.title": "暴击伤害提升",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.description": "每层使暴击伤害提升 10%。",
+  "LIMBUSCORE-L_C_CRIT_DMG_UP.smartDescription": "[gold]暴击伤害[/gold]提升 [blue]{CritBonus}%[/blue]。"
+  
 }
