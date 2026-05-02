@@ -1,0 +1,144 @@
+[gd_scene load_steps=18 format=3 uid="uid://nnyhwt8k3u7e"]
+
+[ext_resource type="Shader" uid="uid://c1a4bff46mci0" path="res://LimbusCore/scenes/ShinEffect.gdshader" id="1_v8nkc"]
+[ext_resource type="Texture2D" uid="uid://diyol81m0ljk6" path="res://LimbusCore/animation/vfx/Blur_01_2.png" id="2_sr8u3"]
+[ext_resource type="Texture2D" uid="uid://dty127wnt7rcg" path="res://LimbusCore/animation/vfx/noise_03.png" id="3_7oi5y"]
+[ext_resource type="Script" uid="uid://8sll8qf3k2vc" path="res://LimbusCoreCode/Overlays/NShinEffect.cs" id="3_script"]
+[ext_resource type="Texture2D" uid="uid://cpy0eaufs2lp2" path="res://LimbusCore/animation/vfx/Noise_41.png" id="7_7p6eh"]
+[ext_resource type="Texture2D" uid="uid://c65eeevkwgwtt" path="res://LimbusCore/animation/vfx/Blur_01_1.png" id="7_p4g8s"]
+[ext_resource type="Texture2D" uid="uid://hwgmlpnvaaqp" path="res://LimbusCore/animation/vfx/Dot_01.png" id="7_qg3w4"]
+[ext_resource type="Texture2D" uid="uid://cm47puniev5un" path="res://LimbusCore/animation/vfx/noise_04.png" id="8_cc2x6"]
+
+[sub_resource type="Shader" id="Shader_qg3w4"]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+// --- TEXTURES ---
+uniform sampler2D main_tex : source_color, filter_linear, repeat_disable; 
+uniform sampler2D noise_03 : repeat_enable; 
+uniform sampler2D noise_04 : repeat_enable; 
+uniform sampler2D thread_noise_tex : repeat_enable;         
+
+// --- CONTROLS ---
+uniform vec2 noise_03_speed = vec2(0.05, -0.6);   
+uniform vec2 noise_04_speed = vec2(-0.1, -0.4); 
+uniform vec2 thread_speed = vec2(0.0, 0.5); // Fixed the missing identifier
+uniform float pulse_speed : hint_range(0.0, 5.0) = 1.2;
+uniform vec2 thread_tiling = vec2(1.0, 1.5);
+uniform float thread_intensity = 3.869;
+
+void fragment() {
+    float breathing_strength = 0.75 + (sin(TIME * pulse_speed) * 0.25);
+    
+    // 1. SAMPLE NOISE 03 (Primary Shape - Stable)
+    vec2 uv_03 = UV + (TIME * noise_03_speed);
+    float map_03 = texture(noise_03, uv_03).r;
+    
+    // 2. SAMPLE NOISE 04 (Detail - Blurred to hide scanline)
+    vec2 uv_04 = UV + (TIME * noise_04_speed);
+    // textureLod at 2.5 blurs the \"sharp jump\" of the noise edges
+    float map_04 = textureLod(noise_04, uv_04, 2.5).r;
+    
+    // 3. BLEND NOISES
+    // Noise 03 provides the stable structure, 04 adds the \"meat\"
+    float combined_map = (map_03 * 0.6) + (map_04 * 0.4);
+    
+    // 4. APPLY DISTORTION
+    vec2 main_uv = UV;
+    main_uv.x += (combined_map - 0.5) * breathing_strength;
+    main_uv.y += (combined_map - 0.5) * 0.15; 
+    
+    // 5. SAMPLE MAIN BODY
+    vec4 main_body = textureLod(main_tex, main_uv, 0.5);
+    
+    // 6. RISING THREADS
+    vec2 t_uv = (UV * thread_tiling) + (TIME * thread_speed);
+    float thread_map = texture(thread_noise_tex, t_uv).r;
+    float thread_mask = smoothstep(0.4, 0.6, thread_map * main_body.r);
+    
+    // 7. COMPOSITE
+    vec3 threads = vec3(thread_mask * thread_intensity) * COLOR.rgb;
+    vec3 final_rgb = (main_body.rgb * COLOR.rgb) + threads;
+    
+    COLOR = vec4(final_rgb, main_body.a * COLOR.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shin"]
+shader = SubResource("Shader_qg3w4")
+shader_parameter/main_tex = ExtResource("2_sr8u3")
+shader_parameter/noise_03 = ExtResource("3_7oi5y")
+shader_parameter/noise_04 = ExtResource("8_cc2x6")
+shader_parameter/thread_noise_tex = ExtResource("7_7p6eh")
+shader_parameter/noise_03_speed = Vector2(0.25, 1)
+shader_parameter/noise_04_speed = Vector2(-0.05, 1)
+shader_parameter/thread_speed = Vector2(0, 0.5)
+shader_parameter/pulse_speed = 5.0
+shader_parameter/thread_tiling = Vector2(1.25, 1.25)
+shader_parameter/thread_intensity = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7oi5y"]
+shader = ExtResource("1_v8nkc")
+shader_parameter/main_tex = ExtResource("2_sr8u3")
+shader_parameter/noise_03 = ExtResource("3_7oi5y")
+shader_parameter/noise_04 = ExtResource("8_cc2x6")
+shader_parameter/thread_noise_tex = ExtResource("7_7p6eh")
+shader_parameter/noise_03_speed = Vector2(-0.2, 0.5)
+shader_parameter/noise_04_speed = Vector2(0, 0.5)
+shader_parameter/thread_speed = Vector2(0, 0.5)
+shader_parameter/pulse_speed = 2.50000011875
+shader_parameter/thread_tiling = Vector2(1.25, 1.25)
+shader_parameter/thread_intensity = 3.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qg3w4"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_7oi5y"]
+_data = [Vector2(0.017612524, 0), 0.0, 0.0, 0, 0, Vector2(0.50097847, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qg3w4"]
+curve = SubResource("Curve_7oi5y")
+
+[sub_resource type="Curve" id="Curve_p4g8s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49902153, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lv48e"]
+curve = SubResource("Curve_p4g8s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7p6eh"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 60.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -50, 0)
+scale_min = 0.0
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_lv48e")
+alpha_curve = SubResource("CurveTexture_qg3w4")
+
+[node name="ShinAura" type="Node2D"]
+modulate = Color(1, 0.88000005, 0.39999998, 1)
+z_index = -1
+material = SubResource("ShaderMaterial_shin")
+scale = Vector2(3.5117188, 5.7773438)
+script = ExtResource("3_script")
+
+[node name="ShinEffect" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7oi5y")
+position = Vector2(18.651829, -11.47805)
+scale = Vector2(1.1368186, 1.4893507)
+texture = ExtResource("7_p4g8s")
+
+[node name="Sparkle" type="GPUParticles2D" parent="."]
+z_index = 3
+material = SubResource("CanvasItemMaterial_qg3w4")
+position = Vector2(16.516119, 32.021637)
+amount = 7
+texture = ExtResource("7_qg3w4")
+lifetime = 0.9
+randomness = 1.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_7p6eh")

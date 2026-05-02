@@ -46,10 +46,10 @@
   "LIMBUSCORE-L_C_BLEED_POWER.title": "出血",
   "LIMBUSCORE-L_C_BLEED_POWER.description": "攻撃するたびに[gold]威力[/gold]分のダメージを受けます。攻撃するたびに[gold]回数[/gold]が[blue]1[/blue]減少します。",
   "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "攻撃するたびに[blue]{Potency}[/blue]ダメージを受けます。攻撃するたびに[gold]回数[/gold]が[blue]1[/blue]減少します。",
-
+  
   "LIMBUSCORE-L_C_PARALYZE_POWER.title": "麻痺",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "次に与えるダメージが1になる確率があります。発動後に解除されます。",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue]の確率で次に与えるダメージが1になります。発動後に解除されます。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "麻痺1スタックにつき、次に与えるダメージを[blue]30%[/blue]減少させます。発動後に解除されます。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "次に与えるダメージを[blue]{DamageReduction}%[/blue]減少させます。発動後に解除されます。",
 
   "LIMBUSCORE-L_C_PROTECTION_POWER.title": "保護",
   "LIMBUSCORE-L_C_PROTECTION_POWER.description": "このターン、受けるダメージが1スタックにつき[blue]-10%[/blue]減少します。(最大 [blue]100%[/blue])",

@@ -21,7 +21,7 @@ public sealed class LCParalyzePower : LimbusCorePower
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>
     {
-        new("ParalyzeChance", 0m)
+        new("DamageReduction", 0m) 
     };
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
@@ -38,33 +38,29 @@ public sealed class LCParalyzePower : LimbusCorePower
 
     private void UpdateDynamicVars()
     {
-        DynamicVars["ParalyzeChance"].BaseValue = Amount * 30;
-    }
-
-    public override decimal ModifyDamageAdditive(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
-    {
-        if (dealer == Owner && !props.HasFlag(ValueProp.Unpowered) && amount > 1)
-        {
-            float chance = 0.3f * (int)Amount;
-            if (Owner.CombatState != null)
-            {
-                float roll = Owner.CombatState.RunState.Rng.Niche.NextFloat();
-                if (roll < chance)
-                {
-                    Flash();
-                    _shouldRemove = true;
-                    return -(amount - 1m);
-                }
-            }
-        }
-        return 0m;
+        DynamicVars["DamageReduction"].BaseValue = Amount * 30;
     }
 
     private bool _shouldRemove = false;
 
-    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? creature, DamageResult result, ValueProp valueProp, Creature target1, CardModel? cardModel)
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
-        if (creature == Owner && _shouldRemove)
+        if (dealer == Owner && !props.HasFlag(ValueProp.Unpowered) && amount > 0)
+        {
+            decimal reductionPercentage = Amount * 0.3m; // 0.3m for 30% per stack
+            
+            if (reductionPercentage > 1m) reductionPercentage = 1m;
+
+            _shouldRemove = true;
+
+            return 1m - reductionPercentage;
+        }
+        return 1m;
+    }
+
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp valueProp, Creature target, CardModel? cardModel)
+    {
+        if (dealer == Owner && _shouldRemove)
         {
             await PowerCmd.Remove(this);
             _shouldRemove = false;

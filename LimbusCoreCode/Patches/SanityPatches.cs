@@ -107,6 +107,30 @@ public static class SanityPatches
     {
         if (original != null) await original;
         await CheckAndApplyPanic(player);
+        if (player.Character.Id.Entry.StartsWith("RienSang"))
+        {
+            // 1. Get ONLY the RienSang assembly to avoid Steamworks/TypeLoad errors
+            var rienSangAssembly = AppDomain.CurrentDomain.GetAssemblies()
+                .FirstOrDefault(a => a.GetName().Name == "RienSang"); // Use your actual Mod Assembly name here
+
+            if (rienSangAssembly != null)
+            {
+                // 2. Look for the type specifically in that assembly
+                var unlockType = rienSangAssembly.GetType("RienSang.RienSangCode.Powers.Unlock");
+
+                if (unlockType != null)
+                {
+                    var checkMethod = unlockType.GetMethod("CheckShinRequirement", 
+                        BindingFlags.Public | BindingFlags.Static);
+
+                    if (checkMethod != null)
+                    {
+                        var task = (Task)checkMethod.Invoke(null, new object[] { player.Creature, new ThrowingPlayerChoiceContext() });
+                        await task;
+                    }
+                }
+            }
+        }
     }
 
     private static async Task WrapResetSanity(Task original, CombatState combatState)

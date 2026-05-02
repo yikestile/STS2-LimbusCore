@@ -48,8 +48,8 @@
   "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "Take [blue]{Potency}[/blue] damage each time this unit attacks. Lose [blue]1[/blue] [gold]Count[/gold] each attack.",
 
   "LIMBUSCORE-L_C_PARALYZE_POWER.title": "Paralyze",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "Has a chance to fix the next instance of damage dealt to 1. Removed after activation.",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue] chance to fix the next instance of damage dealt to 1. Removed after activation.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "Each stack of Paralyze reduces the next damage dealt by [blue]30%[/blue]. Removed after activation.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "Reduces the next damage dealt by [blue]{DamageReduction}%[/blue]. Removed after activation.",
 
   "LIMBUSCORE-L_C_PROTECTION_POWER.title": "Protection",
   "LIMBUSCORE-L_C_PROTECTION_POWER.description": "Take [blue]-10%[/blue] damage per stack this turn (Max [blue]100%[/blue]).",

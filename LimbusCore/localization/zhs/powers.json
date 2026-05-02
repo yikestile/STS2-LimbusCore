@@ -46,10 +46,10 @@
   "LIMBUSCORE-L_C_BLEED_POWER.title": "流血",
   "LIMBUSCORE-L_C_BLEED_POWER.description": "每次攻击时：受到等同于[gold]强度[/gold]的伤害。每次攻击减少 [blue]1[/blue] 次[gold]次数[/gold]。",
   "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "每次攻击时：受到 [blue]{Potency}[/blue] 点伤害。每次攻击减少 [blue]1[/blue] 次[gold]次数[/gold]。",
-
+  
   "LIMBUSCORE-L_C_PARALYZE_POWER.title": "麻痹",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "有概率使下一次造成的伤害固定为 1。触发后消失。",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "有 [blue]{ParalyzeChance}%[/blue] 的概率使下一次造成的伤害固定为 1。触发后消失。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "每层麻痹使下一次造成的伤害降低 [blue]30%[/blue]。触发后消失。",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "使下一次造成的伤害降低 [blue]{DamageReduction}%[/blue]。触发后消失。",
 
   "LIMBUSCORE-L_C_PROTECTION_POWER.title": "守护",
   "LIMBUSCORE-L_C_PROTECTION_POWER.description": "本回合内每层使受到的伤害减少 [blue]10%[/blue]（最高 [blue]100%[/blue]）。",

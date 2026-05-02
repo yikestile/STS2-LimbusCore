@@ -48,8 +48,8 @@
   "LIMBUSCORE-L_C_BLEED_POWER.smartDescription": "공격 시 [blue]{Potency}[/blue] 피해를 입습니다.\n[gold]위력:[/gold] [blue]{Potency}[/blue], [gold]횟수:[/gold] [blue]{Amount}[/blue] (공격 시 1 감소)",
 
   "LIMBUSCORE-L_C_PARALYZE_POWER.title": "마비",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "다음 공격으로 가하는 피해량이 1로 고정될 확률이 있습니다. 발동 시 소모됩니다.",
-  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "[blue]{ParalyzeChance}%[/blue] 확률로 가하는 피해량이 1로 고정될 수 있습니다.\n발동 후 소모됩니다.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.description": "[gold]마비[/gold] 1당 다음 공격으로 가하는 피해량이 [blue]30%[/blue] 감소합니다.",
+  "LIMBUSCORE-L_C_PARALYZE_POWER.smartDescription": "다음 공격으로 가하는 피해량이 [blue]{DamageReduction}%[/blue] 감소합니다. 발동 후 소멸됩니다.",
 
   "LIMBUSCORE-L_C_PROTECTION_POWER.title": "보호",
   "LIMBUSCORE-L_C_PROTECTION_POWER.description": "이번 턴에 받는 피해량이 중첩당 [blue]-10%[/blue] 감소합니다. (최대 [blue]100%[/blue])",

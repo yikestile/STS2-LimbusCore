@@ -16,18 +16,29 @@ public static class NCardDescriptionPatch
 
     private static bool IsLimbusCard(CardModel card)
     {
-        if (card?.Id?.Entry == null) return false;
-    
-        var id = card.Id.Entry;
-        return id.Contains("RienSang") || id.Contains("Limbus");
+        if (card == null || card.Id?.Entry == null) return false;
+
+        string id = card.Id.Entry;
+        return id.Contains("RienSang", StringComparison.OrdinalIgnoreCase) || 
+               id.Contains("Limbus", StringComparison.OrdinalIgnoreCase);
     }
 
     [HarmonyPostfix]
     public static void Postfix(NCard __instance)
     {
+        if (__instance == null || __instance.Model == null) return;
+
+        if (__instance.Model.IsCanonical)
+        {
+            return;
+        }
+
         if (!IsLimbusCard(__instance.Model)) return;
 
-        Callable.From(() => ApplyLimbusSizing(__instance)).CallDeferred();
+        if (__instance.IsInsideTree())
+        {
+            Callable.From(() => ApplyLimbusSizing(__instance)).CallDeferred();
+        }
     }
 
     public static void ApplyLimbusSizing(NCard card)
@@ -48,7 +59,6 @@ public static class NCardDescriptionPatch
                 int textLength = label.Text.Length;
                 int separation = 0;
 
-                // Adjust thresholds for CJK languages which use fewer characters for more information
                 if (isCJK)
                 {
                     if (textLength > 60) separation = -4;
@@ -65,7 +75,6 @@ public static class NCardDescriptionPatch
                 else
                     label.RemoveThemeConstantOverride("line_separation");
 
-                // Force re-triggering of auto-size logic
                 label.Call("AdjustFontSize");
             }
         }

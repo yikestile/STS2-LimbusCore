@@ -55,7 +55,6 @@ public static class LCDamageVfxPatch
             }
 
             // Get the width of the rendered text to position the icon dynamically
-            // Standard Godot Label uses GetMinimumSize() or the font's GetStringSize()
             var usedFont = label.GetThemeFont("font");
             int fontSize = label.GetThemeFontSize("font_size");
             labelWidth = usedFont.GetStringSize(label.Text, HorizontalAlignment.Left, -1, fontSize).X;
