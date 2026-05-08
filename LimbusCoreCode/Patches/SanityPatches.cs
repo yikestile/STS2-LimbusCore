@@ -109,13 +109,11 @@ public static class SanityPatches
         await CheckAndApplyPanic(player);
         if (player.Character.Id.Entry.StartsWith("RienSang"))
         {
-            // 1. Get ONLY the RienSang assembly to avoid Steamworks/TypeLoad errors
             var rienSangAssembly = AppDomain.CurrentDomain.GetAssemblies()
-                .FirstOrDefault(a => a.GetName().Name == "RienSang"); // Use your actual Mod Assembly name here
+                .FirstOrDefault(a => a.GetName().Name == "RienSang");
 
             if (rienSangAssembly != null)
             {
-                // 2. Look for the type specifically in that assembly
                 var unlockType = rienSangAssembly.GetType("RienSang.RienSangCode.Powers.Unlock");
 
                 if (unlockType != null)

@@ -7,7 +7,7 @@
         <DefaultItemExcludes>packages/**</DefaultItemExcludes>
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <PathMap>$(AppOutputBase)=.\</PathMap>
-        <PlatformTarget>AnyCPU</PlatformTarget> <!-- Added for cross-platform compatibility -->
+        <PlatformTarget>AnyCPU</PlatformTarget>
     </PropertyGroup>
 
     <!-- OS Detection -->
@@ -78,7 +78,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.1" PrivateAssets="All" />
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" />
         <AdditionalFiles Include="LimbusCore/localization/**/*.json"/>
         <PackageReference Include="Lib.Harmony" Version="2.4.2" />

@@ -32,7 +32,6 @@ public partial class SanityDisplayOverlay : Control
             _sanityDisplay = sanityDisplayScene.Instantiate<NSanityDisplay>();
             AddChild(_sanityDisplay);
             
-            // Allow input on the inner display so it can show its own tooltip
             _sanityDisplay.MouseFilter = MouseFilterEnum.Stop;
             _sanityDisplay.CustomMinimumSize = new Vector2(128, 128); 
             

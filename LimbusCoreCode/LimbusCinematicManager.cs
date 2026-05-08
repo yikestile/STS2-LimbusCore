@@ -379,7 +379,6 @@ namespace LimbusCore.LimbusCoreCode
         private static void SetUiVisibility(bool visible)
         {
             // CONFIG CHECK: UI Suppression
-            // Skip hiding if disabled, but ALWAYS allow showing
             if (!visible && !LimbusCoreConfig.EnableUiSuppression) return;
 
             var combatUi = NCombatRoom.Instance?.Ui;
@@ -464,7 +463,6 @@ namespace LimbusCore.LimbusCoreCode
         private static void ToggleCinematicBorders(bool show)
         {
             // CONFIG CHECK: Ink Borders
-            // We skip showing if disabled, but ALWAYS allow hiding (to clean up)
             if (show && !LimbusCoreConfig.EnableInkBorders) return;
 
             InitializeBorders();

@@ -11,20 +11,33 @@ namespace LimbusCore.LimbusCoreCode.Mechanics;
 
 public class SanityData
 {
-    private float _currentSP;
-    public bool NeedsSanityResetAfterStun { get; set; }
+    private readonly Player _player;
+
+    public SanityData(Player player)
+    {
+        _player = player;
+    }
+
+    public bool NeedsSanityResetAfterStun
+    {
+        get => SanityFields.SavedStunReset[_player.Character];
+        set => SanityFields.SavedStunReset[_player.Character] = value;
+    }
+
     public Type? PanicPowerType { get; set; }
 
     public float CurrentSP
     {
-        get => _currentSP;
+        get => (float)SanityFields.SavedSP[_player.Character];
         set
         {
-            float newVal = Math.Clamp(value, -45f, 45f);
-            if (Math.Abs(_currentSP - newVal) > 0.01f)
+            int newVal = (int)Math.Clamp(Math.Floor(value), -45, 45);
+            int oldVal = SanityFields.SavedSP[_player.Character];
+
+            if (oldVal != newVal)
             {
-                _currentSP = newVal;
-                OnSanityChanged?.Invoke(_currentSP);
+                SanityFields.SavedSP[_player.Character] = newVal;
+                OnSanityChanged?.Invoke((float)newVal);
             }
         }
     }
@@ -38,7 +51,7 @@ public static class SanityManager
 
     public static SanityData GetData(Player player)
     {
-        return _sanityTable.GetValue(player, _ => new SanityData());
+        return _sanityTable.GetValue(player, p => new SanityData(p));
     }
 
     public static float GetSanity(Player player)

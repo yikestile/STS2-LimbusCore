@@ -128,14 +128,14 @@ script = ExtResource("3_script")
 
 [node name="ShinEffect" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7oi5y")
-position = Vector2(18.651829, -11.47805)
+position = Vector2(0, 10)
 scale = Vector2(1.1368186, 1.4893507)
 texture = ExtResource("7_p4g8s")
 
 [node name="Sparkle" type="GPUParticles2D" parent="."]
 z_index = 3
 material = SubResource("CanvasItemMaterial_qg3w4")
-position = Vector2(16.516119, 32.021637)
+position = Vector2(0, 45)
 amount = 7
 texture = ExtResource("7_qg3w4")
 lifetime = 0.9

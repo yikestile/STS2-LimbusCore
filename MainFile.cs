@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Modding;
 using System.Reflection;
 using BaseLib.Config;
 using LimbusCore.LimbusCoreCode;
+using LimbusCore.LimbusCoreCode.Mechanics;
 
 namespace LimbusCore;
 
