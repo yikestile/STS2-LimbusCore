@@ -21,7 +21,7 @@ public sealed class LCBleedPower : LimbusCorePower, IHasSecondAmount
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool IsInstanced => false;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
 
     public int amount2; // Potency
 

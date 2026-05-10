@@ -32,6 +32,7 @@ public class LCFragilePower : LimbusCorePower
         {
             return 1m + (base.Amount * 0.10m);
         }
+
         return 1m;
     }
 

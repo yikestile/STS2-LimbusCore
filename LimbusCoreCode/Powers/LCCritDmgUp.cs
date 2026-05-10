@@ -11,7 +11,7 @@ public sealed class LCCritDmgUp : LimbusCorePower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool IsInstanced => false;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>
     {

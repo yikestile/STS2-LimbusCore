@@ -3,9 +3,10 @@
   "name": "Limbus Core",
   "author": "Eka",
   "description": "This mod handles the Sanity System and generic Powers from Limbus Company.",
-  "version": "v1.0.7",
+  "version": "v1.0.8",
+  "min_game_version": "0.105.0",
   "has_pck": true,
   "has_dll": true,
-  "dependencies": ["BaseLib"],
+  "dependencies": [{"id": "BaseLib", "min_version": "v3.1.2"}],
   "affects_gameplay": true
 }

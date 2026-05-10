@@ -37,6 +37,7 @@ public partial class SanityDisplayOverlay : Control
             
             _sanityDisplay.SetAnchorsPreset(LayoutPreset.BottomLeft);
             _sanityDisplay.Position = new Vector2(-70, -60); 
+            _sanityDisplay.Visible = false;
             
             var currentState = CombatManager.Instance.DebugOnlyGetState();
             if (currentState != null)
@@ -75,9 +76,14 @@ public partial class SanityDisplayOverlay : Control
         if (combatState != null)
         {
              var player = combatState.Players.FirstOrDefault(p => LocalContext.IsMe(p));
-             if (player != null)
+             if (player != null && LimbusUtils.IsLimbusCharacter(player))
              {
+                 _sanityDisplay.Visible = true;
                  _sanityDisplay.Initialize(player);
+             }
+             else
+             {
+                 _sanityDisplay.Visible = false;
              }
         }
     }

@@ -19,6 +19,12 @@ namespace LimbusCore.LimbusCoreCode.Powers;
 
 public sealed class LCPoisePower : LimbusCorePower, IHasSecondAmount
 {
+    public int Count => (int)base.Amount;
+    public override PowerType Type => PowerType.Buff;
+    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerInstanceType InstanceType => PowerInstanceType.None;
+    public override int DisplayAmount => Count;
+    
     private class Data
     {
         public AttackCommand? commandToModify;
@@ -45,11 +51,7 @@ public sealed class LCPoisePower : LimbusCorePower, IHasSecondAmount
         }
     }
     
-    public int Count => (int)base.Amount;
-    public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool IsInstanced => false;
-    public override int DisplayAmount => Count;
+
     
     public LCPoisePower() : base()
     {

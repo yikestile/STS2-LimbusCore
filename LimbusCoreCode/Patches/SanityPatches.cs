@@ -27,11 +27,6 @@ namespace LimbusCore.LimbusCoreCode.Patches;
 [HarmonyPatch]
 public static class SanityPatches
 {
-    private static bool IsLimbusCharacter(Player player)
-    {
-        var modelId = player.Character.Id.Entry;
-        return modelId.StartsWith("RienSang", StringComparison.OrdinalIgnoreCase) || modelId.StartsWith("Limbus", StringComparison.OrdinalIgnoreCase);
-    }
     
     [HarmonyPatch(typeof(RunManager), nameof(RunManager.Abandon))]
     [HarmonyPostfix]
@@ -49,7 +44,7 @@ public static class SanityPatches
         if (dealer != null)
         {
             var player = dealer.Player;
-            if (player != null && IsLimbusCharacter(player))
+            if (player != null && LimbusUtils.IsLimbusCharacter(player))
             {
                 if (results.UnblockedDamage > 0)
                 {
@@ -83,7 +78,7 @@ public static class SanityPatches
         if (target == null) return;
 
         var player = target.Player; 
-        if (player == null || !IsLimbusCharacter(player)) return;
+        if (player == null || !LimbusUtils.IsLimbusCharacter(player)) return;
 
         var damageTaken = result.UnblockedDamage;
         if (damageTaken <= 0) return;
@@ -137,7 +132,7 @@ public static class SanityPatches
 
         foreach (var player in combatState.Players)
         {
-            if (player == null || !IsLimbusCharacter(player)) continue;
+            if (player == null || !LimbusUtils.IsLimbusCharacter(player)) continue;
 
             var sanityData = SanityManager.GetData(player);
             if (sanityData.NeedsSanityResetAfterStun)
@@ -166,7 +161,7 @@ public static class SanityPatches
     [HarmonyPrefix]
     public static bool HandleTurnSkip(CombatManager __instance, Player player, HookPlayerChoiceContext playerChoiceContext, ref Task __result)
     {
-        if (!IsLimbusCharacter(player)) return true;
+        if (!LimbusUtils.IsLimbusCharacter(player)) return true;
         if (!ShouldSkipTurn(player)) return true; 
 
         __result = PerformTurnSkip(player);
@@ -195,7 +190,7 @@ public static class SanityPatches
     {
          if (dealer == null) return;
          var player = dealer.Player; 
-         if (player == null || !IsLimbusCharacter(player)) return; 
+         if (player == null || !LimbusUtils.IsLimbusCharacter(player)) return; 
          if (previewMode != CardPreviewMode.None) return;
          if ((modifyDamageHookType & ModifyDamageHookType.Multiplicative) == 0) return;
          
