@@ -5,9 +5,6 @@ using MegaCrit.Sts2.Core.Runs;
 using System.Reflection;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Relics;
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Collections;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Debug;
@@ -254,8 +251,9 @@ namespace LimbusCore.LimbusCoreCode
             }
         }
 
-        public static void StartBackgroundParallax(float charGlobalX)
+        public static void StartBackgroundParallax(float charGlobalX, ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             if (_isBackgroundParallaxActive) return;
 
             // CONFIG CHECK: Parallax Movement
@@ -308,8 +306,9 @@ namespace LimbusCore.LimbusCoreCode
             return RunManager.Instance?.ActionQueueSet?.IsEmpty ?? true;
         }
 
-        public static void UpdateShaderIntensity(bool isAttacking, double delta)
+        public static void UpdateShaderIntensity(bool isAttacking, double delta, ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             if (_topInk == null || !GodotObject.IsInstanceValid(_topInk)) return;
 
             float fDelta = (float)delta;
@@ -353,31 +352,43 @@ namespace LimbusCore.LimbusCoreCode
             }
         }
         
-        public static void UpdateBorders(float currentDebounceTimer, float maxDebounceTime, bool isNearNeutral)
+        public static void UpdateBorders(float currentDebounceTimer, float maxDebounceTime, bool isNearNeutral, ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             if (!IsUiPendingShow || !IsUiHidden) return;
             
             if (currentDebounceTimer <= 0.25f && isNearNeutral)
             {
-                ToggleCinematicBorders(false);
+                ToggleCinematicBorders(false, triggeringPlayerNetId);
             }
         }
 
-        public static void ConfirmUiShow()
+        public static void ConfirmUiShow(ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             if (!IsUiPendingShow) return;
             IsUiPendingShow = false;
             
-            ToggleCinematicBorders(false);
-            SetUiVisibility(true);
+            ToggleCinematicBorders(false, triggeringPlayerNetId);
+            SetUiVisibility(true, triggeringPlayerNetId);
         }
 
-        public static void StartUiHide() { if (!IsUiHidden) SetUiVisibility(false); IsUiPendingShow = false; }
-        public static void EndUiSequence() { IsUiPendingShow = true; }
-        public static void PrepareUiShow() { if (IsUiHidden) ToggleCinematicBorders(false); }
+        public static void StartUiHide(ulong triggeringPlayerNetId) { 
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
+            if (!IsUiHidden) SetUiVisibility(false, triggeringPlayerNetId); IsUiPendingShow = false; 
+        }
+        public static void EndUiSequence(ulong triggeringPlayerNetId) { 
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
+            IsUiPendingShow = true; 
+        }
+        public static void PrepareUiShow(ulong triggeringPlayerNetId) { 
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
+            if (IsUiHidden) ToggleCinematicBorders(false, triggeringPlayerNetId); 
+        }
 
-        private static void SetUiVisibility(bool visible)
+        private static void SetUiVisibility(bool visible, ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             // CONFIG CHECK: UI Suppression
             if (!visible && !LimbusCoreConfig.EnableUiSuppression) return;
 
@@ -422,7 +433,7 @@ namespace LimbusCore.LimbusCoreCode
             }
             
             IsUiHidden = hide;
-            ToggleCinematicBorders(!visible);
+            ToggleCinematicBorders(!visible, triggeringPlayerNetId);
         }
 
         private static void InitializeBorders()
@@ -460,8 +471,9 @@ namespace LimbusCore.LimbusCoreCode
             return container;
         }
 
-        private static void ToggleCinematicBorders(bool show)
+        private static void ToggleCinematicBorders(bool show, ulong triggeringPlayerNetId)
         {
+            if (triggeringPlayerNetId != RunManager.Instance.NetService.NetId) return;
             // CONFIG CHECK: Ink Borders
             if (show && !LimbusCoreConfig.EnableInkBorders) return;
 
