@@ -1,9 +1,7 @@
-﻿using BaseLib.Abstracts;
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
-using System.Threading.Tasks;
 using LimbusCore.LimbusCoreCode.Mechanics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
@@ -27,10 +25,10 @@ public sealed class LCTremorBurst : LimbusCorePower
 
     public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
     {
-        var tremor = Owner.Powers.OfType<ITremorPower>().FirstOrDefault();
-        if (tremor != null)
+        TremorMain? tremorPower = Owner.GetPower<TremorMain>();
+        if (tremorPower != null)
         {
-            await tremor.OnBurst(new ThrowingPlayerChoiceContext(), applier ?? Owner);
+            await tremorPower.OnBurst(new ThrowingPlayerChoiceContext(), applier ?? Owner);
         }
         await PowerCmd.Remove(this);
     }

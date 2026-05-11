@@ -2,24 +2,30 @@
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using LimbusCore.LimbusCoreCode.Mechanics; 
-using LimbusCore.LimbusCoreCode.Powers; 
-using System.Collections.Generic;
-using System.Runtime.CompilerServices; 
-using System.Reflection; 
-using MegaCrit.Sts2.Core.Combat; 
-using System.Linq; 
+using LimbusCore.LimbusCoreCode.Mechanics;
+using System.Runtime.CompilerServices;
+using System.Reflection;
 
 namespace LimbusCore.LimbusCoreCode.Overlays;
 
 [HarmonyPatch(typeof(NHealthBar), nameof(NHealthBar.RefreshValues))]
 public static class StaggerThresholdsVfx
 {
-    private static readonly AccessTools.FieldRef<NHealthBar, Creature> _creatureField =
-        AccessTools.FieldRefAccess<NHealthBar, Creature>("_creature");
+private static readonly AccessTools.FieldRef<NHealthBar, Creature> _creatureField =
+AccessTools.FieldRefAccess<NHealthBar, Creature>("_creature");
 
     private static readonly PropertyInfo _maxFgWidthProperty = AccessTools.Property(typeof(NHealthBar), "MaxFgWidth");
     private static readonly MethodInfo _getMaxFgWidthMethod = _maxFgWidthProperty?.GetGetMethod(true);
+
+    private static readonly AccessTools.FieldRef<TremorMain, int> _raisedHpThreshold1Field =
+        AccessTools.FieldRefAccess<TremorMain, int>("_raisedHpThreshold1");
+    private static readonly AccessTools.FieldRef<TremorMain, int> _raisedHpThreshold2Field =
+        AccessTools.FieldRefAccess<TremorMain, int>("_raisedHpThreshold2");
+    private static readonly AccessTools.FieldRef<TremorMain, int> _raisedHpThreshold3Field =
+        AccessTools.FieldRefAccess<TremorMain, int>("_raisedHpThreshold3");
+    private static readonly AccessTools.FieldRef<TremorMain, int> _staggerAppliedTurnField =
+        AccessTools.FieldRefAccess<TremorMain, int>("_staggerAppliedTurn");
+
 
     private static readonly ConditionalWeakTable<NHealthBar, List<Line2D>> _thresholdLines = new();
 
@@ -52,9 +58,14 @@ public static class StaggerThresholdsVfx
         {
             float maxHp = creature.MaxHp;
             float currentHp = creature.CurrentHp;
-            float potencyAdjustment = tremorPower.Potency / 100f;
+            
+            int raisedHp1 = _raisedHpThreshold1Field(tremorPower);
+            int raisedHp2 = _raisedHpThreshold2Field(tremorPower);
+            int raisedHp3 = _raisedHpThreshold3Field(tremorPower);
 
-            int thresholdsReached = tremorPower.DynamicVars["ThresholdsReached"].IntValue;
+            float hpThreshold1 = (maxHp * TremorMain.STAGGER_THRESHOLD_1_PERCENT) + raisedHp1;
+            float hpThreshold2 = (maxHp * TremorMain.STAGGER_THRESHOLD_2_PERCENT) + raisedHp2;
+            float hpThreshold3 = (maxHp * TremorMain.STAGGER_THRESHOLD_3_PERCENT) + raisedHp3;
 
             Control hpBarContainer = __instance.HpBarContainer;
             float hpBarWidth = 0f;
@@ -66,26 +77,39 @@ public static class StaggerThresholdsVfx
             if (hpBarWidth <= 0) return;
             float hpBarHeight = hpBarContainer.Size.Y;
 
-            for (int k = 1; k <= 3; k++)
+            int staggerAppliedTurn = _staggerAppliedTurnField(tremorPower);
+            int currentCombatTurn = creature.CombatState?.RoundNumber ?? 0;
+
+            var activeThresholds = new List<float>();
+            if (currentHp > hpThreshold1) activeThresholds.Add(hpThreshold1);
+            if (currentHp > hpThreshold2) activeThresholds.Add(hpThreshold2);
+            if (currentHp > hpThreshold3) activeThresholds.Add(hpThreshold3);
+
+            activeThresholds = activeThresholds.OrderByDescending(t => t).ToList();
+
+            for (int i = 0; i < activeThresholds.Count; i++)
             {
-                int visualLevel = k - thresholdsReached;
-
-                if (visualLevel <= 0) continue;
-
-                float basePerc = k switch { 1 => 0.75f, 2 => 0.50f, 3 => 0.25f, _ => 0f };
-                float hpThreshold = maxHp * Mathf.Clamp(basePerc + potencyAdjustment, 0f, 1f);
-
-                if (currentHp <= hpThreshold) continue;
-
-                Color lineColor = visualLevel switch
+                Color lineColor;
+                if (currentCombatTurn == staggerAppliedTurn)
                 {
-                    1 => StaggerColor,
-                    2 => StaggerPlusColor,
-                    3 => StaggerPlusPlusColor,
-                    _ => StaggerColor
-                };
-
-                AddThresholdLine(__instance, lines, hpBarContainer, hpBarWidth, hpBarHeight, hpThreshold, maxHp, lineColor);
+                    float originalThresholdHp = activeThresholds[i];
+                    
+                    if (originalThresholdHp == hpThreshold3) lineColor = StaggerPlusPlusColor;
+                    else if (originalThresholdHp == hpThreshold2) lineColor = StaggerPlusColor;
+                    else if (originalThresholdHp == hpThreshold1) lineColor = StaggerColor;
+                    else lineColor = StaggerColor;
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0: lineColor = StaggerColor; break;
+                        case 1: lineColor = StaggerPlusColor; break;
+                        case 2: lineColor = StaggerPlusPlusColor; break;
+                        default: lineColor = StaggerColor; break;
+                    }
+                }
+                AddThresholdLine(__instance, lines, hpBarContainer, hpBarWidth, hpBarHeight, activeThresholds[i], maxHp, lineColor);
             }
         }
     }
@@ -95,21 +119,35 @@ public static class StaggerThresholdsVfx
         if (thresholdHp <= 0 || thresholdHp >= maxHp || hpBarWidth <= 0) return; 
 
         float xPosition = (thresholdHp / maxHp) * hpBarWidth;
-
         float heightExtension = 6f; 
+        float strokeSize = 2f;
 
-        Line2D line = new Line2D
+        Line2D strokeLine = new Line2D
         {
-            Name = $"StaggerThresholdLine_{thresholdHp}",
-            DefaultColor = color,
-            Width = LineWidth,
+            Name = $"StaggerStroke_{thresholdHp}",
+            DefaultColor = new Color(0, 0, 0, 1),
+            Width = LineWidth + (strokeSize * 2f),
             Points = new Vector2[] { 
                 new Vector2(xPosition, -heightExtension), 
                 new Vector2(xPosition, hpBarHeight + heightExtension) 
             },
             ZIndex = 0 
         };
-        parent.AddChild(line);
-        lines.Add(line);
+        parent.AddChild(strokeLine);
+        lines.Add(strokeLine);
+
+        Line2D mainLine = new Line2D
+        {
+            Name = $"StaggerLine_{thresholdHp}",
+            DefaultColor = color,
+            Width = LineWidth,
+            Points = new Vector2[] { 
+                new Vector2(xPosition, -heightExtension), 
+                new Vector2(xPosition, hpBarHeight + heightExtension) 
+            },
+            ZIndex = 1 
+        };
+        parent.AddChild(mainLine);
+        lines.Add(mainLine);
     }
 }

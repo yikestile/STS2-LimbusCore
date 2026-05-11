@@ -1,5 +1,4 @@
-﻿
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -17,22 +16,27 @@ public sealed class LCTremorScorch : TremorMain
     {
         await base.OnBurst(context, applier);
 
+        int burnPotency = 0;
+        int burnCount = 0;
         var burnPower = Owner.GetPower<LCBurnPower>();
 
         if (burnPower != null)
         {
-            int totalPotency = Potency + burnPower.Potency;
-            int damage = totalPotency / 2;
+            burnPotency = burnPower.Potency;
+            burnCount = burnPower.Count;
+        }
 
-            if (damage > 0)
-            {
-                await CreatureCmd.Damage(context, Owner, (decimal)damage, ValueProp.Unblockable | ValueProp.Unpowered, applier, null);
-            }
+        int totalPotency = Potency + burnPotency;
+        int damage = totalPotency / 2;
+        
+        if (damage > 0)
+        {
+            await CreatureCmd.Damage(context, Owner, (decimal)damage, ValueProp.Unblockable | ValueProp.Unpowered, applier, null);
+        }
 
-            if (burnPower.Count > 0)
-            {
-                await PowerCmd.Decrement(burnPower);
-            }
+        if (burnPower != null && burnCount > 0)
+        {
+            await PowerCmd.Decrement(burnPower);
         }
     }
 }
